@@ -9,7 +9,6 @@ const app = express();
 
 export async function createServer() {
   const resolve = (p) => path.resolve(__dirname, p);
-  let vite = null;
   app.use(await serveStatic(resolve('dist/client'), {
     index: false,
   }));
@@ -21,7 +20,7 @@ export async function createServer() {
     const html = template.replace(`<!--app-html-->`, appHtml);
     res.status(200).set({ 'Content-Type': 'text/html' }).end(html);
   });
-  return { app, vite };
+  return { app };
 }
 
 createServer().then(({ app }) =>
